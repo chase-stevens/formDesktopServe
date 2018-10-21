@@ -14,20 +14,16 @@ body {
 
 .menu .serve {
   background-color: teal;
-  visibility: hidden;
 }
 
 .menu .view-data {
   background-color: yellow;
-  visibility: hidden;
 }
 
 .menu .export {
   background-color: green;
-  visibility: hidden;
 }
 
 .menu .clear {
   background-color: red;
-  visibility: hidden;
 }

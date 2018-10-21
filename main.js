@@ -5,6 +5,7 @@ const fs = require('fs')
 
 let mainWindow;
 let addWindow;
+let jsonQuestions = [];
 
 app.on('ready', function(){
   // Create the browser window.
@@ -41,37 +42,13 @@ function createAddWindow(){
 }
 
 // load form
-let jsonQuestions = [
-  {
-    name: "What's your name?",
-    tag: "name",
-    inputType: "text"
-  },
-  {
-    name: "What's your favorite animal?",
-    tag: "animal",
-    inputType: "radio",
-    inputs: [
-      "lion",
-      "tiger",
-      "bear"
-    ]
-  },
-  {
-    name: "Check all the colors you like!",
-    tag: "color",
-    inputType: "checkbox",
-    inputs: [
-      "red",
-      "orange",
-      "yellow",
-      "green",
-      "blue",
-      "indigo",
-      "violet"
-    ]
+ipcMain.on('loadedFormQuestion', (event, arg) => {
+  let textFormQuestions = JSON.parse(arg);
+  for (let i = 0; i < textFormQuestions.length; i++) {
+    jsonQuestions.push(textFormQuestions[i]);
   }
-];
+  console.log(jsonQuestions);
+})
 
 // Catch new window event
 ipcMain.on('newForm:add', function(){
@@ -87,6 +64,7 @@ ipcMain.on('formQuestionsRequest', (event, arg) => {
     remotePackage: jsonQuestions
   })
 })
+
 
 // Create menu template
 const mainMenuTemplate = [
