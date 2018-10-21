@@ -43,12 +43,19 @@ function createAddWindow(){
 
 // load form
 ipcMain.on('loadedFormQuestion', (event, arg) => {
+  if (jsonQuestions.length > 0) {
+    jsonQuestions = [];
+  }
   let textFormQuestions = JSON.parse(arg);
   for (let i = 0; i < textFormQuestions.length; i++) {
     jsonQuestions.push(textFormQuestions[i]);
   }
-  console.log(jsonQuestions);
 })
+
+// clear form
+ipcMain.on('clearForm', function(){
+  jsonQuestions = [];
+});
 
 // Catch new window event
 ipcMain.on('newForm:add', function(){

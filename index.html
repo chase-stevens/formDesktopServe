@@ -32,6 +32,18 @@
           ipcRenderer.send('newForm:add');
         }
 
+        function clearForm(){
+          if (isLoaded) {
+            ipcRenderer.send('clearForm');
+            alert("Form cleared!")
+            isLoaded = false;
+            document.getElementById("form-loaded").innerHTML = `No Form Loaded`;
+          }
+          else {
+            alert("No form loaded!")
+          }
+        }
+
         function openFile() {
           dialog.showOpenDialog((fileNames) => {
             if(fileNames === undefined) {
@@ -51,7 +63,8 @@
             }
 
             ipcRenderer.send("loadedFormQuestion", data);
-
+            isLoaded = true;
+            document.getElementById("form-loaded").innerHTML = `Form: ${filepath}`;
           });
         }
 

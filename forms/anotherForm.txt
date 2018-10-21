@@ -1,0 +1,1 @@
+[{"name":"What's your age?","tag":"age","inputType":"text"},{"name":"What's your favorite OS?","tag":"os","inputType":"radio","inputs":["windows","mac","linux"]},{"name":"Check all the drinks you like!","tag":"drinks","inputType":"checkbox","inputs":["water","lemonade","coffee","beer"]}]
