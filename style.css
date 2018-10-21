@@ -12,27 +12,22 @@ body {
   background-color: blue;
 }
 
-.menu .view {
-  background-color: magenta;
-  display: none;
-}
-
 .menu .serve {
   background-color: teal;
-  display: none;
+  visibility: hidden;
 }
 
 .menu .view-data {
   background-color: yellow;
-  display: none;
+  visibility: hidden;
 }
 
 .menu .export {
   background-color: green;
-  display: none;
+  visibility: hidden;
 }
 
 .menu .clear {
   background-color: red;
-  display: none;
+  visibility: hidden;
 }

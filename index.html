@@ -9,26 +9,36 @@
       <h1>No Form Loaded</h1>
       <h2>Not writing to any .csv</h2>
       <div class="menu">
-        <button class="load" id="load">Load Form</button>
-        <button class="view">View Form</button>
-        <a href="sample.html"><button class="serve">Serve Form</button></a>
-        <button class="view-data">View Form Data</button>
-        <button class="export">Export .csv</button>
-        <button class="clear">Clear Form</button>
+        <button class="load" id="load" onClick="loadForm()">Load Form</button>
+        <button class="serve" id="serve" onClick="createAddWindow()">Serve Form</button>
+        <button class="export" id="export">Export .csv</button>
+        <button class="clear" id="clear">Clear Form</button>
       </div>
       <ul>
       </ul>
       <script>
         const electron = require('electron');
+        const { BrowserWindow, } = require('electron')
         const {ipcRenderer} = electron;
-        const ul = document.querySelector('ul');
 
-        ipcRenderer.on('color:add', function(e, color) {
-          const li = document.createElement('li');
-          const colorText = document.createTextNode(color);
-          li.appendChild(colorText);
-          ul.appendChild(li);
-        })
+        let isLoaded = false;
+
+        function loadForm() {
+          isLoaded = !isLoaded;
+          if (isLoaded) {
+            document.getElementById("serve").style.visibility = 'visible';
+            document.getElementById("view-data").style.visibility = 'visible';
+            document.getElementById("export").style.visibility = 'visible';
+            document.getElementById("clear").style.visibility = 'visible';
+          }
+          else {
+            document.getElementById("serve").style.visibility = 'hidden';
+            document.getElementById("view-data").style.visibility = 'hidden';
+            document.getElementById("export").style.visibility = 'hidden';
+            document.getElementById("clear").style.visibility = 'hidden';
+          }
+        }
+
       </script>
     </body>
   </html>

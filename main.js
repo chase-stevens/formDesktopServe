@@ -40,12 +40,6 @@ function createAddWindow(){
   }));
 }
 
-// Catch color:add
-ipcMain.on('color:add', function(e, color){
-  mainWindow.webContents.send('color:add', color);
-  addWindow.close();
-});
-
 // Create menu template
 const mainMenuTemplate = [
   {

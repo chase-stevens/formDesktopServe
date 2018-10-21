@@ -4,29 +4,7 @@
 </head>
 <body>
 <h1>Form Title</h1>
-<form action="/my-handling-page">
-  <div class="question">
-    <label for="name">What's your name?</label>
-    <input type="text" id="name" name="userName">
-  </div>
-
-  <div class="question">
-    <label for="color">What's your favorite color?</label>
-    <input type="radio" id="color" name="favoriteColor" value="blue">Blue
-    <input type="radio" id="color" name="favoriteColor" value="red">Red
-    <input type="radio" id="color" name="favoriteColor" value="yellow">Yellow
-  </div>
-
-  <div class="question">
-    <label for="animal">Check all the animals you like!</label><br>
-    <input type="checkbox" id="animal" name="animalsLiked" value="otter">Otter<br>
-    <input type="checkbox" id="animal" name="animalsLiked" value="giraffe">Giraffe<br>
-    <input type="checkbox" id="animal" name="animalsLiked" value="tiger">Tiger<br>
-  </div>
-
-  <div class="button">
-    <button type="submit">Submit</button>
-  </div>
+<form id="dynamic-form">
 </form>
 
 <script>
@@ -47,6 +25,108 @@
     }
     let superOutput = otherOutput.substr(1);
     console.log(`string:${superOutput}`);
+  }
+
+  let jsonQuestions = [
+    {
+      name: "What's your name?",
+      tag: "name",
+      inputType: "text"
+    },
+    {
+      name: "What's your favorite animal?",
+      tag: "animal",
+      inputType: "radio",
+      inputs: [
+        "lion",
+        "tiger",
+        "bear"
+      ]
+    },
+    {
+      name: "Check all the colors you like!",
+      tag: "color",
+      inputType: "checkbox",
+      inputs: [
+        "red",
+        "orange",
+        "yellow",
+        "green",
+        "blue",
+        "indigo",
+        "violet"
+      ]
+    }
+  ];
+
+  document.body.onload = renderForm(jsonQuestions);
+
+  function renderForm(questions) {
+    for (let i = 0; i < questions.length; i++) {
+      renderQuestion(questions[i]);
+    }
+    createButton();
+  }
+
+  function renderQuestion(question) {
+    // create a new div element
+    var newQuestion = document.createElement("div");
+    newQuestion.className += "question-container";
+
+    // and give it some content
+    var questionLabel = document.createElement("label");
+    var questionLabelNode = document.createTextNode(question.name);
+    questionLabel.appendChild(questionLabelNode);
+    newQuestion.appendChild(questionLabel);
+
+    var lineBreak = document.createElement("br");
+    newQuestion.appendChild(lineBreak);
+
+    if (question.inputType === "text"){
+      var newInput = document.createElement("input");
+      newInput.setAttribute("type", question.inputType);
+      newInput.setAttribute("id", question.tag);
+      newInput.setAttribute("name", question.tag);
+      newQuestion.appendChild(newInput);
+
+      var lineBreak = document.createElement("br");
+      newQuestion.appendChild(lineBreak);
+    }
+    else {
+      for (let i = 0; i < question.inputs.length; i++) {
+        var newInput = document.createElement("input");
+        newInput.setAttribute("type", question.inputType);
+        newInput.setAttribute("id", `${question.tag}-${question.inputType}${i}`);
+        newInput.setAttribute("name", question.tag);
+        newInput.setAttribute("value", question.inputs[i]);
+
+        var newLabel = document.createElement("label");
+        newLabel.setAttribute("for", `${question.tag}-${question.inputType}${i}`);
+
+
+        var newInputText = document.createTextNode(question.inputs[i]);
+        newLabel.appendChild(newInputText);
+
+        newQuestion.appendChild(newInput);
+        newQuestion.appendChild(newLabel);
+
+        var lineBreak = document.createElement("br");
+        newQuestion.appendChild(lineBreak);
+      }
+    }
+
+    document.getElementById("dynamic-form").appendChild(newQuestion);
+    var currentDiv = document.getElementById("form-button");
+  }
+
+  function createButton() {
+    var newButton = document.createElement("button");
+    newButton.setAttribute("type", "submit");
+    newButton.setAttribute("id", "form-button")
+
+    var newButtonText = document.createTextNode("Submit");
+    newButton.appendChild(newButtonText);
+    document.getElementById("dynamic-form").appendChild(newButton);
   }
 </script>
 </body>
