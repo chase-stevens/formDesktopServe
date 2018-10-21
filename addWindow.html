@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+<h1>Form Title</h1>
+<form action="/my-handling-page">
+  <div class="question">
+    <label for="name">What's your name?</label>
+    <input type="text" id="name" name="userName">
+  </div>
+
+  <div class="question">
+    <label for="color">What's your favorite color?</label>
+    <input type="radio" id="color" name="favoriteColor" value="blue">Blue
+    <input type="radio" id="color" name="favoriteColor" value="red">Red
+    <input type="radio" id="color" name="favoriteColor" value="yellow">Yellow
+  </div>
+
+  <div class="question">
+    <label for="animal">Check all the animals you like!</label><br>
+    <input type="checkbox" id="animal" name="animalsLiked" value="otter">Otter<br>
+    <input type="checkbox" id="animal" name="animalsLiked" value="giraffe">Giraffe<br>
+    <input type="checkbox" id="animal" name="animalsLiked" value="tiger">Tiger<br>
+  </div>
+
+  <div class="button">
+    <button type="submit">Submit</button>
+  </div>
+</form>
+
+<script>
+  const electron = require('electron');
+  const {ipcRenderer} = electron;
+
+  const form = document.querySelector('form');
+  form.addEventListener('submit', submitForm);
+
+  function submitForm(e) {
+    e.preventDefault();
+    let data = new FormData(form);
+    let output = '';
+    let otherOutput = '';
+    for (const entry of data) {
+      output = entry[0] + "=" + entry[1];
+      otherOutput += "&" + output;
+    }
+    let superOutput = otherOutput.substr(1);
+    console.log(`string:${superOutput}`);
+  }
+</script>
+</body>
+</html>

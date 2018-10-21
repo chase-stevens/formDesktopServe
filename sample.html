@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+<a href="index.html">Home</a>
+<h1>Form Title</h1>
+<form action="/my-handling-page">
+  <div class="question">
+    <label for="name">What's your name?</label>
+    <input type="text" id="name" name="userName">
+  </div>
+
+  <div class="question">
+    <label for="color">What's your favorite color?</label>
+    <input type="radio" id="color" name="favoriteColor" value="blue">Blue
+    <input type="radio" id="color" name="favoriteColor" value="red">Red
+    <input type="radio" id="color" name="favoriteColor" value="yellow">Yellow
+  </div>
+
+  <div class="question">
+    <label for="animal">Check all the animals you like!</label><br>
+    <input type="checkbox" id="animal" name="animalsLiked" value="otter">Otter<br>
+    <input type="checkbox" id="animal" name="animalsLiked" value="giraffe">Giraffe<br>
+    <input type="checkbox" id="animal" name="animalsLiked" value="tiger">Tiger<br>
+  </div>
+
+  <div class="button">
+    <button type="button" onClick="sendData({test:'ok'})">Submit</button>
+  </div>
+</form>
+</body>
+</html>

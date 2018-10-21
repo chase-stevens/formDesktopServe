@@ -1,0 +1,38 @@
+body {
+  text-align: center;
+}
+
+.menu button {
+  width: 50%;
+  background-color: blue;
+  color: white;
+}
+
+.menu .load {
+  background-color: blue;
+}
+
+.menu .view {
+  background-color: magenta;
+  display: none;
+}
+
+.menu .serve {
+  background-color: teal;
+  display: none;
+}
+
+.menu .view-data {
+  background-color: yellow;
+  display: none;
+}
+
+.menu .export {
+  background-color: green;
+  display: none;
+}
+
+.menu .clear {
+  background-color: red;
+  display: none;
+}
