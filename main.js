@@ -40,6 +40,54 @@ function createAddWindow(){
   }));
 }
 
+// load form
+let jsonQuestions = [
+  {
+    name: "What's your name?",
+    tag: "name",
+    inputType: "text"
+  },
+  {
+    name: "What's your favorite animal?",
+    tag: "animal",
+    inputType: "radio",
+    inputs: [
+      "lion",
+      "tiger",
+      "bear"
+    ]
+  },
+  {
+    name: "Check all the colors you like!",
+    tag: "color",
+    inputType: "checkbox",
+    inputs: [
+      "red",
+      "orange",
+      "yellow",
+      "green",
+      "blue",
+      "indigo",
+      "violet"
+    ]
+  }
+];
+
+// Catch new window event
+ipcMain.on('newForm:add', function(){
+  createAddWindow();
+});
+
+// renders form to new window
+ipcMain.on('formQuestionsRequest', (event, arg) => {
+  console.log(arg) // prints "ping"
+  addWindow.send("formQuestionsSend", {
+    success: true,
+    message: 'Loaded json',
+    remotePackage: jsonQuestions
+  })
+})
+
 // Create menu template
 const mainMenuTemplate = [
   {

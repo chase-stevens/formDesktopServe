@@ -27,39 +27,10 @@
     console.log(`string:${superOutput}`);
   }
 
-  let jsonQuestions = [
-    {
-      name: "What's your name?",
-      tag: "name",
-      inputType: "text"
-    },
-    {
-      name: "What's your favorite animal?",
-      tag: "animal",
-      inputType: "radio",
-      inputs: [
-        "lion",
-        "tiger",
-        "bear"
-      ]
-    },
-    {
-      name: "Check all the colors you like!",
-      tag: "color",
-      inputType: "checkbox",
-      inputs: [
-        "red",
-        "orange",
-        "yellow",
-        "green",
-        "blue",
-        "indigo",
-        "violet"
-      ]
-    }
-  ];
-
-  document.body.onload = renderForm(jsonQuestions);
+  document.body.onload = ipcRenderer.send("formQuestionsRequest", "ping");
+  ipcRenderer.on("formQuestionsSend", (event, arg) => {
+    renderForm(arg.remotePackage);
+  })
 
   function renderForm(questions) {
     for (let i = 0; i < questions.length; i++) {

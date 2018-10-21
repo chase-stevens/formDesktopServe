@@ -4,39 +4,56 @@
       <meta charset="UTF-8">
       <title>Hi Mom!</title>
       <link rel="stylesheet" href="style.css">
+      <script>
+
+      </script>
     </head>
     <body>
-      <h1>No Form Loaded</h1>
+      <h1 id="form-loaded">No Form Loaded</h1>
       <h2>Not writing to any .csv</h2>
       <div class="menu">
         <button class="load" id="load" onClick="loadForm()">Load Form</button>
-        <button class="serve" id="serve" onClick="createAddWindow()">Serve Form</button>
-        <button class="export" id="export">Export .csv</button>
-        <button class="clear" id="clear">Clear Form</button>
+        <button class="serve" id="serve" onClick="addWindowEvent()">Serve Form</button>
+        <button class="export" id="export" onClick="shell.openItem(`/users/chasestevens/formDesktopServe/csvData`)">Export .csv</button>
+        <button class="clear" id="clear" onClick="clearForm()">Clear Form</button>
       </div>
-      <ul>
-      </ul>
+
       <script>
         const electron = require('electron');
-        const { BrowserWindow, } = require('electron')
+        const { BrowserWindow, shell } = require('electron')
         const {ipcRenderer} = electron;
 
         let isLoaded = false;
 
         function loadForm() {
-          isLoaded = !isLoaded;
-          if (isLoaded) {
+          shell.openItem(`/users/chasestevens/formDesktopServe/forms`);
+          if (isLoaded == false) {
+            isLoaded = true;
+            document.getElementById("form-loaded").innerHTML = "Form Loaded!"
             document.getElementById("serve").style.visibility = 'visible';
-            document.getElementById("view-data").style.visibility = 'visible';
             document.getElementById("export").style.visibility = 'visible';
             document.getElementById("clear").style.visibility = 'visible';
           }
           else {
+            alert("Please clear form before loading a new one.");
+          }
+        }
+
+        function clearForm() {
+          if (isLoaded == true) {
+            isLoaded = false;
+            document.getElementById("form-loaded").innerHTML = "No Form Loaded"
             document.getElementById("serve").style.visibility = 'hidden';
-            document.getElementById("view-data").style.visibility = 'hidden';
             document.getElementById("export").style.visibility = 'hidden';
             document.getElementById("clear").style.visibility = 'hidden';
           }
+          else {
+            alert("No form is currently loaded.");
+          }
+        }
+
+        function addWindowEvent(){
+          ipcRenderer.send('newForm:add');
         }
 
       </script>
