@@ -13,7 +13,7 @@
       <div class="menu">
         <button class="load" id="load" onClick="openFile()">Load Form</button>
         <button class="serve" id="serve" onClick="addWindowEvent()">Serve Form</button>
-        <button class="save" id="save">Save As .CSV</button>
+        <button class="save" id="save" onClick="exportToCSV()">Save As .CSV</button>
         <button class="clear" id="clear" onClick="clearForm()">Clear Form</button>
       </div>
 
@@ -50,6 +50,10 @@
             ol.removeChild(ol.firstChild);
           }
         });
+
+        function exportToCSV(){
+          ipcRenderer.send('exportToCSV');
+        }
 
         function clearForm(){
           if (isLoaded) {
