@@ -16,15 +16,20 @@
 
   function submitForm(e) {
     e.preventDefault();
-    let data = new FormData(form);
-    let output = '';
-    let otherOutput = '';
+    const data = new FormData(form);
+    let tracker = [];
+    let row = [];
     for (const entry of data) {
-      output = entry[0] + "=" + entry[1];
-      otherOutput += "&" + output;
+      if (tracker.includes(entry[0])) {
+        let position = tracker.indexOf(entry[0]);
+        row[position] += "&" + entry[1];
+      }
+      else {
+        tracker.push(entry[0]);
+        row.push(entry[1]);
+      }
     }
-    let superOutput = otherOutput.substr(1);
-    console.log(`string:${superOutput}`);
+    ipcRenderer.send("formData:add", row);
   }
 
   document.body.onload = ipcRenderer.send("formQuestionsRequest", "ping");

@@ -10,27 +10,46 @@
     </head>
     <body>
       <h1 id="form-loaded">No Form Loaded</h1>
-      <h2>Not writing to any .csv</h2>
       <div class="menu">
         <button class="load" id="load" onClick="openFile()">Load Form</button>
         <button class="serve" id="serve" onClick="addWindowEvent()">Serve Form</button>
-        <button class="export" id="export" onClick="shell.openItem(`/users/chasestevens/formDesktopServe/csvData`)">Export .csv</button>
+        <button class="save" id="save">Save As .CSV</button>
         <button class="clear" id="clear" onClick="clearForm()">Clear Form</button>
+      </div>
+
+      <div class="form-data">
+        <h2>Form Data</h2>
+        <ol>
+        </ol>
       </div>
 
       <script>
         const electron = require('electron');
         const { BrowserWindow, shell } = require('electron')
         const {ipcRenderer} = electron;
+        const ol = document.querySelector('ol');
         var app = require('electron').remote;
         var dialog = app.dialog;
         var fs = require('fs');
 
         let isLoaded = false;
 
+        ipcRenderer.on('formData:add', function(e, row){
+          const li = document.createElement('li');
+          const rowText = document.createTextNode(row);
+          li.appendChild(rowText);
+          ol.appendChild(li);
+        });
+
         function addWindowEvent(){
           ipcRenderer.send('newForm:add');
         }
+
+        ipcRenderer.on("formData:clear", function(){
+          while (ol.firstChild) {
+            ol.removeChild(ol.firstChild);
+          }
+        });
 
         function clearForm(){
           if (isLoaded) {
@@ -64,7 +83,9 @@
 
             ipcRenderer.send("loadedFormQuestion", data);
             isLoaded = true;
-            document.getElementById("form-loaded").innerHTML = `Form: ${filepath}`;
+            myRegex = /[^/]+$/;
+            name = myRegex.exec(filepath);
+            document.getElementById("form-loaded").innerHTML = `Form: ${name}`;
           });
         }
 

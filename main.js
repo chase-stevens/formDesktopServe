@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, Menu } = require('electron')
+const { app, BrowserWindow, ipcMain, } = require('electron')
 const url = require('url');
 const path = require('path');
 const fs = require('fs')
@@ -6,6 +6,7 @@ const fs = require('fs')
 let mainWindow;
 let addWindow;
 let jsonQuestions = [];
+let formData = []
 
 app.on('ready', function(){
   // Create the browser window.
@@ -17,11 +18,6 @@ app.on('ready', function(){
     protocol: 'file:',
     slashes: true
   }));
-
-  // Build menu from template
-  const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
-  // Insert menu
-  Menu.setApplicationMenu(mainMenu);
 });
 
 // Handle create add window
@@ -47,13 +43,21 @@ ipcMain.on('loadedFormQuestion', (event, arg) => {
     jsonQuestions = [];
   }
   let textFormQuestions = JSON.parse(arg);
+  let formData = [];
+  let row = [];
+  mainWindow.webContents.send('formData:clear');
   for (let i = 0; i < textFormQuestions.length; i++) {
     jsonQuestions.push(textFormQuestions[i]);
+    row.push(textFormQuestions[i].tag);
   }
+  formData.push(row);
+  mainWindow.webContents.send('formData:add', row);
 })
 
 // clear form
 ipcMain.on('clearForm', function(){
+  formData = [];
+  mainWindow.webContents.send('formData:clear');
   jsonQuestions = [];
 });
 
@@ -72,53 +76,10 @@ ipcMain.on('formQuestionsRequest', (event, arg) => {
   })
 })
 
-
-// Create menu template
-const mainMenuTemplate = [
-  {
-      label: "File",
-      submenu: [
-        {
-          label: 'Load Form',
-          accelerator: process.platform == 'darwin' ? 'Command+L' : 'Ctrl+L',
-          click(){
-            createAddWindow();
-          }
-        },
-        {
-          label: 'Clear Form'
-        },
-        {
-          label: 'Quit',
-          accelerator: process.platform == 'darwin' ? 'Command+Q' : 'Ctrl+Q',
-          click(){
-            app.quit();
-          }
-        }
-      ]
-  }
-];
-
-// if mac, add empty object to menu
- if (process.platform == 'darwin') {
-   mainMenuTemplate.unshift({});
- }
-
- // add developer tools item if not in prod
- if(process.env.NODE_ENV !== 'production'){
-   mainMenuTemplate.push({
-     label: 'Developer Tools',
-     submenu:[
-       {
-         label: 'Toggle DevTools',
-         accelerator: process.platform == 'darwin' ? 'Command+I' : 'Ctrl+I',
-         click(item, focusedWindow){
-           focusedWindow.toggleDevTools();
-         }
-       },
-       {
-          role: 'reload'
-       }
-     ]
-   })
- }
+// adds to form data
+ipcMain.on('formData:add', function(e, row){
+  formData.push(row)
+  console.log(formData);
+  mainWindow.webContents.send('formData:add', row);
+  addWindow.close();
+});
