@@ -8,8 +8,8 @@ let mainWindow;
 let addWindow;
 
 // Declaring form questions and data
-let jsonQuestions = [];
-let formData = [];
+let jsonQuestions = []; // form-questions.js
+let formData = []; // form-responses.js
 
 // On start up
 app.on('ready', function(){
