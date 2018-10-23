@@ -24,8 +24,22 @@ app.on('ready', function(){
   }));
 });
 
+function createNewForm(){
+  addWindow = new BrowserWindow({
+    width: 800,
+    height: 400,
+    title: 'New Form'
+  });
+
+  addWindow.loadURL(url.format({
+    pathname: path.join(__dirname, "createForm.html"),
+    protocol: 'file:',
+    slashes: true
+  }));
+}
+
 // Handle create add window
-function createAddWindow(){
+function createFormWindow(){
   // Create the browser window.
   addWindow = new BrowserWindow({
     width: 800,
@@ -40,6 +54,11 @@ function createAddWindow(){
     slashes: true
   }));
 }
+
+// Create New Form
+ipcMain.on('createNewForm', function() {
+  createNewForm();
+})
 
 // Load form
 ipcMain.on('loadedFormQuestion', (event, arg) => {
@@ -107,7 +126,7 @@ function nestedArrayToCSV(nestedArray) {
 // Catch new window event
 ipcMain.on('newForm:add', function(){
   console.log(formData);
-  createAddWindow();
+  createFormWindow();
 });
 
 // Renders form to new window upon creation

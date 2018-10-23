@@ -11,8 +11,9 @@
     <body>
       <h1 id="form-loaded">No Form Loaded</h1>
       <div class="menu">
+        <button class="create" id="create" onclick="createNewFormEvent()">Create Form</button>
         <button class="load" id="load" onClick="openFile()">Load Form</button>
-        <button class="serve" id="serve" onClick="addWindowEvent()">Serve Form</button>
+        <button class="serve" id="serve" onClick="formRenderEvent()">Serve Form</button>
         <button class="save" id="save" onClick="exportToCSV()">Save As .CSV</button>
         <button class="clear" id="clear" onClick="clearForm()">Clear Form</button>
       </div>
@@ -43,8 +44,13 @@
           ol.appendChild(li);
         });
 
-        // Sending a request for a new window
-        function addWindowEvent(){
+        // Sends a request to create a new form
+        function createNewFormEvent() {
+          ipcRenderer.send('createNewForm');
+        }
+
+        // Sends a request for a new form fill-out
+        function formRenderEvent(){
           ipcRenderer.send('newForm:add');
         }
 
