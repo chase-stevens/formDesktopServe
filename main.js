@@ -3,11 +3,15 @@ const url = require('url');
 const path = require('path');
 const fs = require('fs');
 
+// Declaring app windows
 let mainWindow;
 let addWindow;
+
+// Declaring form questions and data
 let jsonQuestions = [];
 let formData = [];
 
+// On start up
 app.on('ready', function(){
   // Create the browser window.
   mainWindow = new BrowserWindow({});
@@ -29,7 +33,7 @@ function createAddWindow(){
     title: 'Add Form'
   });
 
-  // and load the index.html of the app.
+  // Load the index.html of the app.
   addWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'addWindow.html'),
     protocol: 'file:',
@@ -37,7 +41,7 @@ function createAddWindow(){
   }));
 }
 
-// load form
+// Load form
 ipcMain.on('loadedFormQuestion', (event, arg) => {
   if (jsonQuestions.length > 0) {
     jsonQuestions = [];
@@ -51,18 +55,17 @@ ipcMain.on('loadedFormQuestion', (event, arg) => {
     row.push(textFormQuestions[i].tag);
   }
   mainWindow.webContents.send('formData:add', row);
-  //formData.push(row);
   console.log(formData);
 });
 
-// clear form
+// Clear form
 ipcMain.on('clearForm', function(){
   mainWindow.webContents.send('formData:clear');
   formData = [];
   jsonQuestions = [];
 });
 
-// export data as csv
+// Export form data as csv
 ipcMain.on('exportToCSV', function(){
   let date = new Date;
   let year = date.getFullYear();
@@ -77,6 +80,7 @@ ipcMain.on('exportToCSV', function(){
   });
 });
 
+// Logic for converting nested array to csv (how form data is stored)
 function nestedArrayToCSV(nestedArray) {
   var lineArray = [];
 
@@ -106,7 +110,7 @@ ipcMain.on('newForm:add', function(){
   createAddWindow();
 });
 
-// renders form to new window
+// Renders form to new window upon creation
 ipcMain.on('formQuestionsRequest', (event, arg) => {
   addWindow.send("formQuestionsSend", {
     success: true,
@@ -115,7 +119,7 @@ ipcMain.on('formQuestionsRequest', (event, arg) => {
   })
 })
 
-// adds to form data
+// Adds to form data
 ipcMain.on('formData:add', function(e, row){
   formData.push(row);
   console.log(formData);

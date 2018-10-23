@@ -55,9 +55,11 @@
     questionLabel.appendChild(questionLabelNode);
     newQuestion.appendChild(questionLabel);
 
+    // Adds line break for formatting
     var lineBreak = document.createElement("br");
     newQuestion.appendChild(lineBreak);
 
+    // renders text input
     if (question.inputType === "text"){
       var newInput = document.createElement("input");
       newInput.setAttribute("type", question.inputType);
@@ -68,6 +70,8 @@
       var lineBreak = document.createElement("br");
       newQuestion.appendChild(lineBreak);
     }
+
+    // renders radio or checkbox input
     else {
       for (let i = 0; i < question.inputs.length; i++) {
         var newInput = document.createElement("input");
@@ -95,6 +99,7 @@
     var currentDiv = document.getElementById("form-button");
   }
 
+  // Creates button for form
   function createButton() {
     var newButton = document.createElement("button");
     newButton.setAttribute("type", "submit");

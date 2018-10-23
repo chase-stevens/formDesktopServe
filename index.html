@@ -24,16 +24,18 @@
       </div>
 
       <script>
+        // Requirements for JS on page
         const electron = require('electron');
-        const { BrowserWindow, shell } = require('electron')
-        const {ipcRenderer} = electron;
+        const { BrowserWindow, ipcRenderer, shell } = require('electron')
         const ol = document.querySelector('ol');
         var app = require('electron').remote;
         var dialog = app.dialog;
         var fs = require('fs');
 
+        // Checks if a form is loaded to the app
         let isLoaded = false;
 
+        // Renders form headers to UI
         ipcRenderer.on('formData:add', function(e, row){
           const li = document.createElement('li');
           const rowText = document.createTextNode(row);
@@ -41,20 +43,24 @@
           ol.appendChild(li);
         });
 
+        // Sending a request for a new window
         function addWindowEvent(){
           ipcRenderer.send('newForm:add');
         }
 
+        // Removes data from UI
         ipcRenderer.on("formData:clear", function(){
           while (ol.firstChild) {
             ol.removeChild(ol.firstChild);
           }
         });
 
+        // Sends request to export data to csv
         function exportToCSV(){
           ipcRenderer.send('exportToCSV');
         }
 
+        // Clears form
         function clearForm(){
           if (isLoaded) {
             ipcRenderer.send('clearForm');
@@ -67,6 +73,7 @@
           }
         }
 
+        // Opens file from computer
         function openFile() {
           dialog.showOpenDialog((fileNames) => {
             if(fileNames === undefined) {
@@ -78,6 +85,7 @@
           });
         };
 
+        // Loads form from file
         function readFile(filepath) {
           fs.readFile(filepath, 'utf-8', (err, data) => {
             if(err) {
