@@ -1,108 +1,34 @@
-<!DOCTYPE html>
+<!doctype html>
   <html>
-    <head>
-      <meta charset="UTF-8">
-      <title>Hi Mom!</title>
-    </head>
-    <body>
-      <h1 id="form-loaded">No Form Loaded</h1>
-      <div class="menu">
-        <button class="create" id="create" onclick="createForm()">Create Form</button>
-        <button class="load" id="load" onClick="openFile()">Load Form</button>
-        <button class="serve" id="serve" onClick="formRender()">Serve Form</button>
-        <button class="save" id="save" onClick="exportToCSV()">Save As .CSV</button>
-        <button class="clear" id="clear" onClick="clearForm()">Clear Form</button>
-      </div>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hi Mom!</title>
+  </head>
+  <body>
+    <h1 id="form-loaded">No Form Loaded</h1>
+    <div class="menu">
+      <button class="create" id="create">Create Form</button>
+      <button class="load" id="load">Load Form</button>
+      <button class="serve" id="serve">Serve Form</button>
+      <button class="save" id="save">Save As .CSV</button>
+      <button class="clear" id="clear">Clear Form</button>
+    </div>
 
-      <div class="form-data">
-        <h2>Form Data</h2>
-        <ol>
-        </ol>
-      </div>
+    <div class="form-data">
+      <h2>Form Data</h2>
+      <ol>
+      </ol>
+    </div>
 
-      <script>
-        // Requirements for JS on page
-        const electron = require('electron');
-        const { BrowserWindow, ipcRenderer, shell } = require('electron')
-        const ol = document.querySelector('ol');
-        var app = require('electron').remote;
-        var dialog = app.dialog;
-        var fs = require('fs');
-
-        // Checks if a form is loaded to the app
-        let isLoaded = false;
-
-        // Renders form headers to UI
-        ipcRenderer.on('formData:add', function(e, row){
-          const li = document.createElement('li');
-          const rowText = document.createTextNode(row);
-          li.appendChild(rowText);
-          ol.appendChild(li);
-        });
-
-        // Sends a request to create a new form
-        function createForm() {
-          ipcRenderer.send('createForm');
-        }
-
-        // Sends a request for a new form fill-out
-        function formRender(){
-          ipcRenderer.send('newForm:add');
-        }
-
-        // Removes data from UI
-        ipcRenderer.on("formData:clear", function(){
-          while (ol.firstChild) {
-            ol.removeChild(ol.firstChild);
-          }
-        });
-
-        // Sends request to export data to csv
-        function exportToCSV(){
-          ipcRenderer.send('exportToCSV');
-        }
-
-        // Clears form
-        function clearForm(){
-          if (isLoaded) {
-            ipcRenderer.send('clearForm');
-            alert("Form cleared!")
-            isLoaded = false;
-            document.getElementById("form-loaded").innerHTML = `No Form Loaded`;
-          }
-          else {
-            alert("No form loaded!")
-          }
-        }
-
-        // Opens file from computer
-        function openFile() {
-          dialog.showOpenDialog((fileNames) => {
-            if(fileNames === undefined) {
-              alert("No file selected");
-            }
-            else {
-              readFile(fileNames[0]);
-            }
-          });
-        };
-
-        // Loads form from file
-        function readFile(filepath) {
-          fs.readFile(filepath, 'utf-8', (err, data) => {
-            if(err) {
-              alert(err);
-              return;
-            }
-
-            ipcRenderer.send("loadedFormQuestion", data);
-            isLoaded = true;
-            myRegex = /[^/]+$/;
-            name = myRegex.exec(filepath);
-            document.getElementById("form-loaded").innerHTML = `Form: ${name}`;
-          });
-        }
-
-      </script>
-    </body>
+    <script>
+      // Requirements for JS on page
+      const electron = require('electron');
+      const { BrowserWindow, ipcRenderer, shell } = require('electron')
+      const ol = document.querySelector('ol');
+      var app = require('electron').remote;
+      var dialog = app.dialog;
+      var fs = require('fs');
+      require('../src/index.js');
+    </script>
+  </body>
   </html>
