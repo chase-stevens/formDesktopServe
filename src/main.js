@@ -4,8 +4,8 @@ const path = require('path');
 const fs = require('fs');
 
 // Declaring app windows
-let mainWindow;
-let addWindow;
+let mainWindow; // Main Menu
+let addWindow; // Additional Windows for creating and serving forms
 
 // Declaring form questions and data
 let jsonQuestions = []; // form-questions.js
@@ -16,15 +16,16 @@ app.on('ready', function(){
   // Create the browser window.
   mainWindow = new BrowserWindow({});
 
-  // and load the index.html of the app.
+  // Load index.html of the app.
   mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
+    pathname: path.join(__dirname, '../public/index.html'),
     protocol: 'file:',
     slashes: true
   }));
 });
 
-function createNewForm(){
+// Creates a new window to create a form
+function createForm(){
   addWindow = new BrowserWindow({
     width: 800,
     height: 400,
@@ -32,35 +33,29 @@ function createNewForm(){
   });
 
   addWindow.loadURL(url.format({
-    pathname: path.join(__dirname, "createForm.html"),
+    pathname: path.join(__dirname, "../public/createForm.html"),
     protocol: 'file:',
     slashes: true
   }));
 }
 
-// Handle create add window
-function createFormWindow(){
+// Creates a new window to serve form
+function serveForm(){
   // Create the browser window.
   addWindow = new BrowserWindow({
     width: 800,
     height: 400,
-    title: 'Add Form'
+    title: 'Serve Form' // TODO: pass in form name as title
   });
 
-  // Load the index.html of the app.
   addWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'addWindow.html'),
+    pathname: path.join(__dirname, '../public/serveForm.html'),
     protocol: 'file:',
     slashes: true
   }));
 }
 
-// Create New Form
-ipcMain.on('createNewForm', function() {
-  createNewForm();
-})
-
-// Load form
+// Load form from JSON object to app
 ipcMain.on('loadedFormQuestion', (event, arg) => {
   if (jsonQuestions.length > 0) {
     jsonQuestions = [];
@@ -74,7 +69,32 @@ ipcMain.on('loadedFormQuestion', (event, arg) => {
     row.push(textFormQuestions[i].tag);
   }
   mainWindow.webContents.send('formData:add', row);
-  console.log(formData);
+});
+
+// Create New Form
+ipcMain.on('createForm', function() {
+  createForm();
+})
+
+// Serves Form
+ipcMain.on('newForm:add', function(){
+  serveForm();
+});
+
+// Renders served form to new window upon creation
+ipcMain.on('formQuestionsRequest', (event, arg) => {
+  addWindow.send("formQuestionsSend", {
+    success: true,
+    message: 'Loaded json',
+    remotePackage: jsonQuestions
+  })
+})
+
+// Takes served form data and adds to app form data
+ipcMain.on('formData:add', function(e, row){
+  formData.push(row);
+  mainWindow.webContents.send('formData:add', row);
+  addWindow.close();
 });
 
 // Clear form
@@ -101,10 +121,7 @@ ipcMain.on('exportToCSV', function(){
 
 // Logic for converting nested array to csv (how form data is stored)
 function nestedArrayToCSV(nestedArray) {
-  var lineArray = [];
-
-  console.log(jsonQuestions);
-
+  let lineArray = [];
   let header = []
 
   for (let i = 0; i < jsonQuestions.length; i++) {
@@ -122,26 +139,3 @@ function nestedArrayToCSV(nestedArray) {
   console.log(`csv:\n${csvContent}`);
   return csvContent;
 }
-
-// Catch new window event
-ipcMain.on('newForm:add', function(){
-  console.log(formData);
-  createFormWindow();
-});
-
-// Renders form to new window upon creation
-ipcMain.on('formQuestionsRequest', (event, arg) => {
-  addWindow.send("formQuestionsSend", {
-    success: true,
-    message: 'Loaded json',
-    remotePackage: jsonQuestions
-  })
-})
-
-// Adds to form data
-ipcMain.on('formData:add', function(e, row){
-  formData.push(row);
-  console.log(formData);
-  mainWindow.webContents.send('formData:add', row);
-  addWindow.close();
-});
