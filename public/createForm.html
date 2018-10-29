@@ -16,23 +16,39 @@
         <input type="text" name="" value="">
       </div>
 
-      <div class="question-input">
-        <label for="question-name">Question Name: </label>
+      <hr>
+
+      <div class="question-input-0" id="question-input-0">
+        <label for="question-name-0">Question Name</label><br>
         <input type="text" name="" value="">
+        <br>
 
-        <label for="question-tag">Question Tag: </label>
+        <label for="question-tag-0">Question Tag</label><br>
         <input type="text" name="" value="">
+        <br>
 
-        <label for="question-input-type">Input Type: </label>
-        <input type="dropdown" name="" value="">
+        <label for="question-input-type-0">Input Type</label><br>
+        <input type="radio" class="radio" name="input-type" id="text" value="text">Text<br>
+        <input type="radio" class="radio" name="input-type" id="radio" value="radio" checked="checked">Radio<br>
+        <input type="radio" class="radio" name="input-type" id="checkbox" value="checkbox">Checkbox
+        <br>
 
-        <!-- if input type !== text, then add input values-->
+        <label for="question-input-values-0">Input Values (separate by comma)</label><br>
+        <textarea name="input-options-0" id="input-options" cols="30" rows="10"></textarea>
+
+        <!-- if input type == text, hide input values-->
       </div>
+
+      <hr>
 
       <div class="add-new-question-container">
         Add New Question<button class="add-question">+</button>
       </div>
     </form>
   </div>
+  <script>
+  const electron = require('electron');
+  require("../src/createForm.js")
+  </script>
 </body>
 </html>
