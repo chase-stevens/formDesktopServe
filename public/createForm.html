@@ -18,29 +18,31 @@
 
       <hr>
 
-      <div class="question-input-0" id="question-input-0">
-        <label for="question-name-0">Question Name</label><br>
-        <input type="text" name="" value="">
-        <br>
+      <div id="dynamic-form">
+        <div class="question-1" id="question-1">
+          <h2>Question 1</h2>
+          <label for="name">Question Name</label><br>
+          <input type="text" name="questionName" value="">
+          <br>
 
-        <label for="question-tag-0">Question Tag</label><br>
-        <input type="text" name="" value="">
-        <br>
+          <label for="tag">Question Tag</label><br>
+          <input type="text" name="tag" value="">
+          <br>
 
-        <label for="question-input-type-0">Input Type</label><br>
-        <input type="radio" class="radio" name="input-type" id="text" value="text">Text<br>
-        <input type="radio" class="radio" name="input-type" id="radio" value="radio" checked="checked">Radio<br>
-        <input type="radio" class="radio" name="input-type" id="checkbox" value="checkbox">Checkbox
-        <br>
+          <label for="input-type">Input Type</label><br>
+          <input type="radio" class="radio" name="input-type" id="text" value="text">Text<br>
+          <input type="radio" class="radio" name="input-type" id="radio" value="radio" checked="checked">Radio<br>
+          <input type="radio" class="radio" name="input-type" id="checkbox" value="checkbox">Checkbox
+          <br>
 
-        <label for="question-input-values-0">Input Values (separate by comma)</label><br>
-        <textarea name="input-options-0" id="input-options" cols="30" rows="10"></textarea>
+          <label for="input-values">Input Values (separate by comma)</label><br>
+          <textarea name="input-options" id="input-options" cols="30" rows="10"></textarea>
 
-        <!-- if input type == text, hide input values-->
+          <!-- if input type == text, hide input values-->
+        </div>
+
+        <hr>
       </div>
-
-      <hr>
-
       <div class="add-new-question-container">
         Add New Question<button class="add-question">+</button>
       </div>
