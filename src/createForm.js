@@ -1,15 +1,20 @@
-let questions = ["placeholder"];
-newQuestion();
+let questionsId = ["question-1"];
+inputTypesTextField("question-1");
+
+document.querySelector('#add-question').addEventListener('click', newQuestion);
 
 function newQuestion() {
   // create a new div element
+  let newQuestionName = "question-" + (questionsId.length+1);
   let newQuestion = document.createElement("div");
+  questionsId.push(newQuestionName);
 
-  newQuestion.className += "question-" + (questions.length+1);
+  newQuestion.className = newQuestionName;
+  newQuestion.id = newQuestionName;
 
   // add header
   let header = document.createElement("h2");
-  let headerNode = document.createTextNode("Question " + (questions.length+1));
+  let headerNode = document.createTextNode("Question " + (questionsId.length));
   header.appendChild(headerNode);
   newQuestion.appendChild(header);
 
@@ -52,51 +57,69 @@ function newQuestion() {
   // add radio inputs for input type
   let newInputTypeTextInput = document.createElement("input");
   newInputTypeTextInput.setAttribute("type", "radio");
-  newInputTypeTextInput.setAttribute("name", "input-type");
+  newInputTypeTextInput.setAttribute("class", "radio");
+  newInputTypeTextInput.setAttribute("name", "input-type-" + questionsId.length);
   newInputTypeTextInput.setAttribute("id", "text");
   newInputTypeTextInput.setAttribute("value", "text");
   newQuestion.appendChild(newInputTypeTextInput);
 
-  let newInputTextLabel = document.createElement("label")
-  newInputTextLabel.setAttribute("for", "text")
   let newInputTextText = document.createTextNode("Text");
-  newInputTextLabel.appendChild(newInputTextText);
-  newQuestion.appendChild(newInputTextLabel);
+  newQuestion.appendChild(newInputTextText);
 
   newQuestion.appendChild(document.createElement("br"));
 
   let newInputTypeRadioInput = document.createElement("input");
   newInputTypeRadioInput.setAttribute("type", "radio");
-  newInputTypeRadioInput.setAttribute("name", "input-type");
+  newInputTypeRadioInput.setAttribute("class", "radio");
+  newInputTypeRadioInput.setAttribute("name", "input-type-" + questionsId.length);
   newInputTypeRadioInput.setAttribute("id", "radio");
   newInputTypeRadioInput.setAttribute("value", "radio");
+  newInputTypeRadioInput.setAttribute("checked", "checked");
   newQuestion.appendChild(newInputTypeRadioInput);
 
-  let newInputRadioLabel = document.createElement("label")
-  newInputRadioLabel.setAttribute("for", "radio")
   let newInputRadioText = document.createTextNode("Radio");
-  newInputRadioLabel.appendChild(newInputRadioText);
-  newQuestion.appendChild(newInputRadioLabel);
+  newQuestion.appendChild(newInputRadioText);
 
   newQuestion.appendChild(document.createElement("br"));
 
   let newInputTypeCheckboxInput = document.createElement("input");
   newInputTypeCheckboxInput.setAttribute("type", "radio");
-  newInputTypeCheckboxInput.setAttribute("name", "input-type");
+  newInputTypeCheckboxInput.setAttribute("class", "radio");
+  newInputTypeCheckboxInput.setAttribute("name", "input-type-" + questionsId.length);
   newInputTypeCheckboxInput.setAttribute("id", "checkbox");
   newInputTypeCheckboxInput.setAttribute("value", "checkbox");
   newQuestion.appendChild(newInputTypeCheckboxInput);
 
-  let newInputCheckboxLabel = document.createElement("label")
-  newInputCheckboxLabel.setAttribute("for", "checkbox")
   let newInputCheckboxText = document.createTextNode("Checkbox");
-  newInputCheckboxLabel.appendChild(newInputCheckboxText);
-  newQuestion.appendChild(newInputCheckboxLabel);
+  newQuestion.appendChild(newInputCheckboxText);
 
   newQuestion.appendChild(document.createElement("br"));
+
+  /*
+  <label for="input-values">Input Values (separate by comma)</label><br>
+  <textarea name="input-options" id="input-options" cols="30" rows="10"></textarea>
+  */
+
+  // textarea for input values
+  let inputValuesLabel = document.createElement("label");
+  inputValuesLabel.setAttribute("for", "input-values");
+  let inputValuesLabelNode = document.createTextNode("Input Values (separate values by comma)");
+  inputValuesLabel.appendChild(inputValuesLabelNode);
+  newQuestion.appendChild(inputValuesLabel);
+
+  newQuestion.appendChild(document.createElement("br"));
+
+  let inputValuesInput = document.createElement("textarea");
+  inputValuesInput.setAttribute("name", "input-values");
+  inputValuesInput.setAttribute("id", "input-values");
+  inputValuesInput.setAttribute("cols", "30");
+  inputValuesInput.setAttribute("rows", "10");
+  newQuestion.appendChild(inputValuesInput);
+
   newQuestion.appendChild(document.createElement("hr"));
 
   document.getElementById("dynamic-form").appendChild(newQuestion);
+  inputTypesTextField(newQuestionName);
 }
 
 function inputTypesTextField(questionId) {
@@ -106,10 +129,10 @@ function inputTypesTextField(questionId) {
   for (let i = 0; i < elements.length; i++) {
     elements[i].addEventListener("change", function(){
         if (question.querySelector("#text").checked) {
-          question.querySelector("#input-options").style.display = "none";
+          question.querySelector("#input-values").style.display = "none";
         }
         else {
-          question.querySelector("#input-options").style.display = "block";
+          question.querySelector("#input-values").style.display = "block";
         }
     });
   }
