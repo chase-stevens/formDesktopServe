@@ -41,48 +41,64 @@ function newQuestion() {
   newQuestion.appendChild(newTagInput);
   newQuestion.appendChild(document.createElement("br"));
 
+  // add label for input type
+  let InputTypeLabel = document.createElement("label");
+  InputTypeLabel.setAttribute("for", "input-type");
+  let InputTypeNode = document.createTextNode("Input Type");
+  InputTypeLabel.appendChild(InputTypeNode);
+  newQuestion.appendChild(InputTypeLabel);
+  newQuestion.appendChild(document.createElement("br"));
+
+  // add radio inputs for input type
+  let newInputTypeTextInput = document.createElement("input");
+  newInputTypeTextInput.setAttribute("type", "radio");
+  newInputTypeTextInput.setAttribute("name", "input-type");
+  newInputTypeTextInput.setAttribute("id", "text");
+  newInputTypeTextInput.setAttribute("value", "text");
+  newQuestion.appendChild(newInputTypeTextInput);
+
+  let newInputTextLabel = document.createElement("label")
+  newInputTextLabel.setAttribute("for", "text")
+  let newInputTextText = document.createTextNode("Text");
+  newInputTextLabel.appendChild(newInputTextText);
+  newQuestion.appendChild(newInputTextLabel);
+
+  newQuestion.appendChild(document.createElement("br"));
+
+  let newInputTypeRadioInput = document.createElement("input");
+  newInputTypeRadioInput.setAttribute("type", "radio");
+  newInputTypeRadioInput.setAttribute("name", "input-type");
+  newInputTypeRadioInput.setAttribute("id", "radio");
+  newInputTypeRadioInput.setAttribute("value", "radio");
+  newQuestion.appendChild(newInputTypeRadioInput);
+
+  let newInputRadioLabel = document.createElement("label")
+  newInputRadioLabel.setAttribute("for", "radio")
+  let newInputRadioText = document.createTextNode("Radio");
+  newInputRadioLabel.appendChild(newInputRadioText);
+  newQuestion.appendChild(newInputRadioLabel);
+
+  newQuestion.appendChild(document.createElement("br"));
+
+  let newInputTypeCheckboxInput = document.createElement("input");
+  newInputTypeCheckboxInput.setAttribute("type", "radio");
+  newInputTypeCheckboxInput.setAttribute("name", "input-type");
+  newInputTypeCheckboxInput.setAttribute("id", "checkbox");
+  newInputTypeCheckboxInput.setAttribute("value", "checkbox");
+  newQuestion.appendChild(newInputTypeCheckboxInput);
+
+  let newInputCheckboxLabel = document.createElement("label")
+  newInputCheckboxLabel.setAttribute("for", "checkbox")
+  let newInputCheckboxText = document.createTextNode("Checkbox");
+  newInputCheckboxLabel.appendChild(newInputCheckboxText);
+  newQuestion.appendChild(newInputCheckboxLabel);
+
+  newQuestion.appendChild(document.createElement("br"));
+  newQuestion.appendChild(document.createElement("hr"));
 
   document.getElementById("dynamic-form").appendChild(newQuestion);
 }
 
-  /*
-  // renders text input
-  if (question.inputType === "text"){
-    let newInput = document.createElement("input");
-    newInput.setAttribute("type", question.inputType);
-    newInput.setAttribute("id", question.tag);
-    newInput.setAttribute("name", question.tag);
-    newQuestion.appendChild(newInput);
-
-    let lineBreak = document.createElement("br");
-    newQuestion.appendChild(lineBreak);
-  }
-
-  // renders radio or checkbox input
-  else {
-    for (let i = 0; i < question.inputs.length; i++) {
-      let newInput = document.createElement("input");
-      newInput.setAttribute("type", question.inputType);
-      newInput.setAttribute("id", `${question.tag}-${question.inputType}${i}`);
-      newInput.setAttribute("name", question.tag);
-      newInput.setAttribute("value", question.inputs[i]);
-
-      let newLabel = document.createElement("label");
-      newLabel.setAttribute("for", `${question.tag}-${question.inputType}${i}`);
-
-
-      let newInputText = document.createTextNode(question.inputs[i]);
-      newLabel.appendChild(newInputText);
-
-      newQuestion.appendChild(newInput);
-      newQuestion.appendChild(newLabel);
-
-      let lineBreak = document.createElement("br");
-      newQuestion.appendChild(lineBreak);
-    }
-  }
-}
-*/
 function inputTypesTextField(questionId) {
   let question = document.getElementById(questionId);
   let elements = question.querySelectorAll("input.radio");
