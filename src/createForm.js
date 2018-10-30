@@ -1,3 +1,5 @@
+const form = document.querySelector('form');
+form.addEventListener('submit', submitForm);
 let questionsId = [];
 
 document.querySelector('#add-question').addEventListener('click', newQuestion);
@@ -137,5 +139,13 @@ function inputTypesTextField(questionId) {
           question.querySelector("#label-input-values").style.display = "block";
         }
     });
+  }
+}
+
+function submitForm(e) {
+  e.preventDefault();
+  const data = new FormData(form);
+  for (const entry of data) {
+    console.log(entry);
   }
 }
