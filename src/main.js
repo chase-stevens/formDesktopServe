@@ -66,7 +66,7 @@ ipcMain.on('loadedFormQuestion', (event, arg) => {
   let row = [];
   for (let i = 0; i < textFormQuestions.length; i++) {
     jsonQuestions.push(textFormQuestions[i]);
-    row.push(textFormQuestions[i].tag);
+    row.push(textFormQuestions[i].questionTag);
   }
   mainWindow.webContents.send('formData:add', row);
 });

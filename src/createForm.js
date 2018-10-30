@@ -49,7 +49,7 @@ function newQuestion() {
 
   // add label for input type
   let InputTypeLabel = document.createElement("label");
-  InputTypeLabel.setAttribute("for", "input-type");
+  InputTypeLabel.setAttribute("for", "inputType");
   let InputTypeNode = document.createTextNode("Input Type");
   InputTypeLabel.appendChild(InputTypeNode);
   newQuestion.appendChild(InputTypeLabel);
@@ -59,7 +59,7 @@ function newQuestion() {
   let newInputTypeTextInput = document.createElement("input");
   newInputTypeTextInput.setAttribute("type", "radio");
   newInputTypeTextInput.setAttribute("class", "radio");
-  newInputTypeTextInput.setAttribute("name", "input-type-" + questionsId.length);
+  newInputTypeTextInput.setAttribute("name", "inputType" + questionsId.length);
   newInputTypeTextInput.setAttribute("id", "text");
   newInputTypeTextInput.setAttribute("value", "text");
   newQuestion.appendChild(newInputTypeTextInput);
@@ -72,7 +72,7 @@ function newQuestion() {
   let newInputTypeRadioInput = document.createElement("input");
   newInputTypeRadioInput.setAttribute("type", "radio");
   newInputTypeRadioInput.setAttribute("class", "radio");
-  newInputTypeRadioInput.setAttribute("name", "input-type-" + questionsId.length);
+  newInputTypeRadioInput.setAttribute("name", "inputType" + questionsId.length);
   newInputTypeRadioInput.setAttribute("id", "radio");
   newInputTypeRadioInput.setAttribute("value", "radio");
   newInputTypeRadioInput.setAttribute("checked", "checked");
@@ -86,7 +86,7 @@ function newQuestion() {
   let newInputTypeCheckboxInput = document.createElement("input");
   newInputTypeCheckboxInput.setAttribute("type", "radio");
   newInputTypeCheckboxInput.setAttribute("class", "radio");
-  newInputTypeCheckboxInput.setAttribute("name", "input-type-" + questionsId.length);
+  newInputTypeCheckboxInput.setAttribute("name", "inputType" + questionsId.length);
   newInputTypeCheckboxInput.setAttribute("id", "checkbox");
   newInputTypeCheckboxInput.setAttribute("value", "checkbox");
   newQuestion.appendChild(newInputTypeCheckboxInput);
@@ -103,7 +103,7 @@ function newQuestion() {
 
   // textarea for input values
   let inputValuesLabel = document.createElement("label");
-  inputValuesLabel.setAttribute("for", "input-values");
+  inputValuesLabel.setAttribute("for", "inputTalues");
   inputValuesLabel.setAttribute("id", "label-input-values");
   let inputValuesLabelNode = document.createTextNode("Input Values (separate values by comma)");
   inputValuesLabel.appendChild(inputValuesLabelNode);
@@ -112,8 +112,8 @@ function newQuestion() {
   newQuestion.appendChild(document.createElement("br"));
 
   let inputValuesInput = document.createElement("textarea");
-  inputValuesInput.setAttribute("name", "input-values");
-  inputValuesInput.setAttribute("id", "input-values");
+  inputValuesInput.setAttribute("name", "inputValues");
+  inputValuesInput.setAttribute("id", "inputValues");
   inputValuesInput.setAttribute("cols", "30");
   inputValuesInput.setAttribute("rows", "10");
   newQuestion.appendChild(inputValuesInput);
@@ -131,11 +131,11 @@ function inputTypesTextField(questionId) {
   for (let i = 0; i < elements.length; i++) {
     elements[i].addEventListener("change", function(){
         if (question.querySelector("#text").checked) {
-          question.querySelector("#input-values").style.display = "none";
+          question.querySelector("#inputValues").style.display = "none";
           question.querySelector("#label-input-values").style.display = "none";
         }
         else {
-          question.querySelector("#input-values").style.display = "block";
+          question.querySelector("#inputValues").style.display = "block";
           question.querySelector("#label-input-values").style.display = "block";
         }
     });
@@ -147,5 +147,8 @@ function submitForm(e) {
   const data = new FormData(form);
   for (const entry of data) {
     console.log(entry);
+    // entry 0 is form name
+    // entry 1-4 is q1
+    // entry 5-8 is q2 etc
   }
 }

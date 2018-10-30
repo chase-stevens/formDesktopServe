@@ -39,7 +39,7 @@ function renderQuestion(question) {
 
   // and give it some content
   var questionLabel = document.createElement("label");
-  var questionLabelNode = document.createTextNode(question.name);
+  var questionLabelNode = document.createTextNode(question.questionName);
   questionLabel.appendChild(questionLabelNode);
   newQuestion.appendChild(questionLabel);
 
@@ -51,8 +51,8 @@ function renderQuestion(question) {
   if (question.inputType === "text"){
     var newInput = document.createElement("input");
     newInput.setAttribute("type", question.inputType);
-    newInput.setAttribute("id", question.tag);
-    newInput.setAttribute("name", question.tag);
+    newInput.setAttribute("id", question.questionTag);
+    newInput.setAttribute("name", question.questionTag);
     newQuestion.appendChild(newInput);
 
     var lineBreak = document.createElement("br");
@@ -61,18 +61,18 @@ function renderQuestion(question) {
 
   // renders radio or checkbox input
   else {
-    for (let i = 0; i < question.inputs.length; i++) {
+    for (let i = 0; i < question.inputValues.length; i++) {
       var newInput = document.createElement("input");
       newInput.setAttribute("type", question.inputType);
-      newInput.setAttribute("id", `${question.tag}-${question.inputType}${i}`);
-      newInput.setAttribute("name", question.tag);
-      newInput.setAttribute("value", question.inputs[i]);
+      newInput.setAttribute("id", `${question.questionTag}-${question.inputType}${i}`);
+      newInput.setAttribute("name", question.questionTag);
+      newInput.setAttribute("value", question.inputValues[i]);
 
       var newLabel = document.createElement("label");
-      newLabel.setAttribute("for", `${question.tag}-${question.inputType}${i}`);
+      newLabel.setAttribute("for", `${question.questionTag}-${question.inputType}${i}`);
 
 
-      var newInputText = document.createTextNode(question.inputs[i]);
+      var newInputText = document.createTextNode(question.inputValues[i]);
       newLabel.appendChild(newInputText);
 
       newQuestion.appendChild(newInput);
