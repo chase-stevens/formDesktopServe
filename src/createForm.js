@@ -1,5 +1,4 @@
-let questionsId = ["question-1"];
-inputTypesTextField("question-1");
+let questionsId = [];
 
 document.querySelector('#add-question').addEventListener('click', newQuestion);
 
@@ -103,6 +102,7 @@ function newQuestion() {
   // textarea for input values
   let inputValuesLabel = document.createElement("label");
   inputValuesLabel.setAttribute("for", "input-values");
+  inputValuesLabel.setAttribute("id", "label-input-values");
   let inputValuesLabelNode = document.createTextNode("Input Values (separate values by comma)");
   inputValuesLabel.appendChild(inputValuesLabelNode);
   newQuestion.appendChild(inputValuesLabel);
@@ -130,9 +130,11 @@ function inputTypesTextField(questionId) {
     elements[i].addEventListener("change", function(){
         if (question.querySelector("#text").checked) {
           question.querySelector("#input-values").style.display = "none";
+          question.querySelector("#label-input-values").style.display = "none";
         }
         else {
           question.querySelector("#input-values").style.display = "block";
+          question.querySelector("#label-input-values").style.display = "block";
         }
     });
   }
