@@ -1,3 +1,4 @@
+const fs = require('fs');
 const form = document.querySelector('form');
 form.addEventListener('submit', submitForm);
 let questionsId = [];
@@ -145,10 +146,47 @@ function inputTypesTextField(questionId) {
 function submitForm(e) {
   e.preventDefault();
   const data = new FormData(form);
+  let formFile = { questions: [] };
+  let newFormQuestion = {};
+  let counter = 0;
   for (const entry of data) {
-    console.log(entry);
-    // entry 0 is form name
-    // entry 1-4 is q1
-    // entry 5-8 is q2 etc
+    if (counter === 0) {
+      formFile.name = entry[1];
+    } else {
+      if (counter % 4 === 1) {
+        newFormQuestion.questionName = entry[1];
+      }
+      else if (counter % 4 === 2) {
+        newFormQuestion.questionTag = entry[1];
+      }
+      else if (counter % 4 === 3) {
+        newFormQuestion.inputType = entry[1];
+      }
+      else if (counter % 4 === 0) {
+        newFormQuestion.inputValues = [];
+        let values = entry[1].split(',');
+
+        for (let i = 0; i < values.length; i++) {
+          newFormQuestion.inputValues.push(values[i]);
+        }
+
+        formFile.questions.push(newFormQuestion);
+        newFormQuestion = {};
+
+      }
+    }
+    counter++;
   }
+  let fileContents = JSON.stringify(formFile);
+  console.log(fileContents);
 }
+
+/*
+fs.writeFile(formName + '.txt', questions, (err) => {
+  // throws error
+  if (err) throw err;
+
+  //success case, file saved
+  console.log("form created!")
+});
+*/
