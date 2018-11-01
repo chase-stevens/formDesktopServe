@@ -64,9 +64,9 @@ ipcMain.on('loadedFormQuestion', (event, arg) => {
   let textFormQuestions = JSON.parse(arg);
   let formData = [];
   let row = [];
-  for (let i = 0; i < textFormQuestions.length; i++) {
-    jsonQuestions.push(textFormQuestions[i]);
-    row.push(textFormQuestions[i].questionTag);
+  for (let i = 0; i < textFormQuestions.questions.length; i++) {
+    jsonQuestions.push(textFormQuestions.questions[i]);
+    row.push(textFormQuestions.questions[i].questionTag);
   }
   mainWindow.webContents.send('formData:add', row);
 });
@@ -112,7 +112,7 @@ ipcMain.on('exportToCSV', function(){
   let day = date.getDate();
   let content = nestedArrayToCSV(formData);
   let fName = year + '-' + month + "-" + day + ".csv";
-  let fDir = __dirname + "/csvData/" + fName;
+  let fDir = __dirname + "/../csvData/" + fName;
   fs.writeFile(fDir, content, (err) => {
     if (err) { throw err };
     console.log('The file has been saved!');
