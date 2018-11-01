@@ -107,11 +107,8 @@ ipcMain.on('clearForm', function(){
 // Export form data as csv
 ipcMain.on('exportToCSV', function(){
   let date = new Date;
-  let year = date.getFullYear();
-  let month = date.getMonth() + 1;
-  let day = date.getDate();
   let content = nestedArrayToCSV(formData);
-  let fName = year + '-' + month + "-" + day + ".csv";
+  let fName = date.toString() + ".csv";
   let fDir = __dirname + "/../csvData/" + fName;
   fs.writeFile(fDir, content, (err) => {
     if (err) { throw err };
