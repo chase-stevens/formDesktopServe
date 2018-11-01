@@ -171,7 +171,7 @@ function submitForm(e) {
             newFormQuestion.inputValues.push(values[i]);
           }
         }
-        
+
         formFile.questions.push(newFormQuestion);
         newFormQuestion = {};
 
@@ -180,7 +180,14 @@ function submitForm(e) {
     counter++;
   }
   let fileContents = JSON.stringify(formFile);
-  console.log(fileContents);
+
+  fs.writeFile(formFile.name + '.txt', fileContents, (err) => {
+    // throws error
+    if (err) throw err;
+
+    //success case, file saved
+    console.log("form created!")
+  });
 }
 
 /*
