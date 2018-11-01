@@ -163,13 +163,15 @@ function submitForm(e) {
         newFormQuestion.inputType = entry[1];
       }
       else if (counter % 4 === 0) {
-        newFormQuestion.inputValues = [];
-        let values = entry[1].split(',');
+        if (newFormQuestion.inputType !== "text") {
+          newFormQuestion.inputValues = [];
+          let values = entry[1].split(',');
 
-        for (let i = 0; i < values.length; i++) {
-          newFormQuestion.inputValues.push(values[i]);
+          for (let i = 0; i < values.length; i++) {
+            newFormQuestion.inputValues.push(values[i]);
+          }
         }
-
+        
         formFile.questions.push(newFormQuestion);
         newFormQuestion = {};
 
