@@ -125,7 +125,7 @@ function nestedArrayToCSV(nestedArray) {
   let header = []
 
   for (let i = 0; i < jsonQuestions.length; i++) {
-    header.push(jsonQuestions[i].tag);
+    header.push(jsonQuestions[i].questionTag);
   }
 
   nestedArray.unshift(header);
