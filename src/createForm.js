@@ -179,9 +179,11 @@ function submitForm(e) {
     }
     counter++;
   }
+
+  let filePath = __dirname + `/../forms/` + formFile.name + '.txt';
   let fileContents = JSON.stringify(formFile);
 
-  fs.writeFile(formFile.name + '.txt', fileContents, (err) => {
+  fs.writeFile(filePath, fileContents, (err) => {
     // throws error
     if (err) throw err;
 
