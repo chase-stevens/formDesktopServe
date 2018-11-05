@@ -10,8 +10,24 @@ let isLoaded = false;
 
 // Renders form headers to UI
 ipcRenderer.on('formData:add', function(e, row, isHeader){
-  const formTable = document.getElementById("form-data-table")
+  const formTable = document.getElementById('form-data-table');
+  const tableHead = document.getElementById('form-data-table-head');
+  const tableBody = document.getElementById('form-data-table-body');
   const tableRow = document.createElement('tr');
+
+  if (isHeader) {
+    let rowHeader = document.createElement('th');
+    rowHeader.scope = 'row';
+    rowHeader.innerHTML = "#";
+    tableRow.appendChild(rowHeader);
+  }
+
+  else {
+    let rowHeader = document.createElement('th');
+    rowHeader.scope = 'row';
+    rowHeader.innerHTML = document.getElementById("form-data-table-body").getElementsByTagName("tr").length + 1;
+    tableRow.appendChild(rowHeader);
+  }
 
   // need to split so headers are th and data is td
   for (let entry of row) {
@@ -20,7 +36,7 @@ ipcRenderer.on('formData:add', function(e, row, isHeader){
     tableRow.appendChild(tableCell);
   }
 
-  formTable.appendChild(tableRow);
+  (isHeader ? tableHead : tableBody).appendChild(tableRow);
 });
 
 // Sends a request to create a new form
@@ -36,7 +52,7 @@ function formRender(){
 
 // Removes data from UI
 ipcRenderer.on("formData:clear", function() {
-  document.getElementById("form-data-table").innerHTML = "";
+  /*document.getElementById("form-data-table").innerHTML = ""*/;
 });
 
 // Sends request to export data to csv

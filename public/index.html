@@ -18,15 +18,16 @@
 
     <div class="form-data">
       <h2>Form Data</h2>
-      <tabel id="form-data-table" style="width: 100%">
-      </tabel>
+      <table id="form-data-table" style="width: 100%">
+        <thead id="form-data-table-head"></thead>
+        <tbody id="form-data-table-body"></tbody>
+      </table>
     </div>
 
     <script>
       // Requirements for JS on page
       const electron = require('electron');
       const { BrowserWindow, ipcRenderer, shell } = require('electron')
-      const ol = document.querySelector('ol');
       var app = require('electron').remote;
       var dialog = app.dialog;
       var fs = require('fs');
