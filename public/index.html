@@ -7,17 +7,17 @@
     <title>Hi Mom!</title>
   </head>
   <body>
-    <h1 id="form-loaded">No Form Loaded</h1>
-    <div class="menu">
-      <button class="create btn" id="create">Create Form</button>
-      <button class="load btn" id="load">Load Form</button>
-      <button class="serve btn" id="serve">Serve Form</button>
-      <button class="save btn" id="save">Save As .CSV</button>
-      <button class="clear btn" id="clear">Clear Form</button>
-    </div>
+    <nav class="nav flex-column">
+      <h2 id="form-loaded" style="color:white;">No Form Loaded</h2>
+      <button class="create btn nav-item" id="create">Create Form</button>
+      <button class="load btn nav-item" id="load">Load Form</button>
+      <button class="serve btn nav-item" id="serve">Serve Form</button>
+      <button class="save btn nav-item" id="save">Save As .CSV</button>
+      <button class="clear btn nav-item" id="clear">Clear Form</button>
+    </nav>
 
     <div class="form-data">
-      <h2>Form Data</h2>
+      <h1 style="text-align:center;">Form Data</h1>
       <table id="form-data-table" class="table table-striped" style="width: 100%">
         <thead id="form-data-table-head"></thead>
         <tbody id="form-data-table-body"></tbody>

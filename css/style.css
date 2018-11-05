@@ -1,3 +1,27 @@
 body {
   background-color: #d8d8d8;
 }
+
+h2 {
+  font-size: 1.5em;
+}
+
+.nav {
+  width: 150px;
+  height: 100%;
+  padding: 10px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: midnightblue;
+}
+
+.nav-item {
+  margin: 5px;
+}
+
+.form-data {
+  margin-left: 160px;
+  width: auto;
+}
