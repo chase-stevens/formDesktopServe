@@ -35,12 +35,8 @@ function formRender(){
 
 
 // Removes data from UI
-ipcRenderer.on("formData:clear", function(){
-  // update to clear table
-  /*
-  while (ol.firstChild) {
-    ol.removeChild(ol.firstChild);
-  }*/
+ipcRenderer.on("formData:clear", function() {
+  document.getElementById("form-data-table").innerHTML = "";
 });
 
 // Sends request to export data to csv
