@@ -64,11 +64,12 @@ ipcMain.on('loadedFormQuestion', (event, arg) => {
   let textFormQuestions = JSON.parse(arg);
   let formData = [];
   let row = [];
+  let isHeader = true;
   for (let i = 0; i < textFormQuestions.questions.length; i++) {
     jsonQuestions.push(textFormQuestions.questions[i]);
     row.push(textFormQuestions.questions[i].questionTag);
   }
-  mainWindow.webContents.send('formData:add', row);
+  mainWindow.webContents.send('formData:add', row, isHeader);
 });
 
 // Create New Form
@@ -91,9 +92,9 @@ ipcMain.on('formQuestionsRequest', (event, arg) => {
 })
 
 // Takes served form data and adds to app form data
-ipcMain.on('formData:add', function(e, row){
+ipcMain.on('formData:add', function(e, row, isHeader){
   formData.push(row);
-  mainWindow.webContents.send('formData:add', row);
+  mainWindow.webContents.send('formData:add', row, isHeader);
   addWindow.close();
 });
 

@@ -5,15 +5,22 @@ document.querySelector('#save').addEventListener('click', exportToCSV)
 document.querySelector('#clear').addEventListener('click', clearForm)
 
 
-// Checks if a form is loaded to the app
+// Stores whether form is loaded
 let isLoaded = false;
 
 // Renders form headers to UI
-ipcRenderer.on('formData:add', function(e, row){
-  const li = document.createElement('li');
-  const rowText = document.createTextNode(row);
-  li.appendChild(rowText);
-  ol.appendChild(li);
+ipcRenderer.on('formData:add', function(e, row, isHeader){
+  const formTable = document.getElementById("form-data-table")
+  const tableRow = document.createElement('tr');
+
+  // need to split so headers are th and data is td
+  for (let entry of row) {
+    let tableCell = document.createElement(isHeader ? 'th' : 'td');
+    tableCell.innerHTML = entry;
+    tableRow.appendChild(tableCell);
+  }
+
+  formTable.appendChild(tableRow);
 });
 
 // Sends a request to create a new form
@@ -26,11 +33,14 @@ function formRender(){
   ipcRenderer.send('newForm:add');
 }
 
+
 // Removes data from UI
 ipcRenderer.on("formData:clear", function(){
+  // update to clear table
+  /*
   while (ol.firstChild) {
     ol.removeChild(ol.firstChild);
-  }
+  }*/
 });
 
 // Sends request to export data to csv

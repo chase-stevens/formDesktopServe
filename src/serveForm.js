@@ -7,6 +7,7 @@ function submitForm(e) {
   const data = new FormData(form);
   let tracker = [];
   let row = [];
+  isHeader = false;
   for (const entry of data) {
     if (tracker.includes(entry[0])) {
       let position = tracker.indexOf(entry[0]);
@@ -17,7 +18,7 @@ function submitForm(e) {
       row.push(entry[1]);
     }
   }
-  ipcRenderer.send("formData:add", row);
+  ipcRenderer.send("formData:add", row, isHeader);
 }
 
 document.body.onload = ipcRenderer.send("formQuestionsRequest", "ping");
@@ -88,6 +89,7 @@ function renderQuestion(question) {
 }
 
 // Creates button for form
+// do we need this or can we create the button in the html?
 function createButton() {
   var newButton = document.createElement("button");
   newButton.setAttribute("type", "submit");
