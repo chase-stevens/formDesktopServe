@@ -93,7 +93,8 @@ function renderQuestion(question) {
 function createButton() {
   var newButton = document.createElement("button");
   newButton.setAttribute("type", "submit");
-  newButton.setAttribute("id", "form-button")
+  newButton.setAttribute("id", "form-button");
+  newButton.setAttribute("class", "btn");
 
   var newButtonText = document.createTextNode("Submit");
   newButton.appendChild(newButtonText);
