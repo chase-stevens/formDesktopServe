@@ -28,8 +28,8 @@ function newQuestion() {
 
   // Add text input for name
   let newNameInput = document.createElement("input");
-  newNameInput.setAttribute("type", "text");
-  newNameInput.setAttribute("name", "questionName");
+  newNameInput.type = "text";
+  newNameInput.name = "questionName";
   newQuestion.appendChild(newNameInput);
 
   newQuestion.appendChild(document.createElement("br"));
@@ -43,15 +43,15 @@ function newQuestion() {
 
   // Add text input for tag
   let newTagInput = document.createElement("input");
-  newTagInput.setAttribute("type", "text");
-  newTagInput.setAttribute("name", "questionTag");
+  newTagInput.type = "text";
+  newTagInput.name = "questionTag";
   newQuestion.appendChild(newTagInput);
 
   newQuestion.appendChild(document.createElement("br"));
 
   // add label for input type
   let inputTypeLabel = document.createElement("label");
-  inputTypeLabel.setAttribute("for", "inputType");
+  inputTypeLabel.htmlFor = "inputType";
   inputTypeLabel.innerHTML = "Input Type";
   newQuestion.appendChild(inputTypeLabel);
 
@@ -59,11 +59,11 @@ function newQuestion() {
 
   // add radio inputs for input type
   let newInputTypeTextInput = document.createElement("input");
-  newInputTypeTextInput.setAttribute("type", "radio");
-  newInputTypeTextInput.setAttribute("class", "radio");
-  newInputTypeTextInput.setAttribute("name", "inputType" + questionsId.length);
-  newInputTypeTextInput.setAttribute("id", "text");
-  newInputTypeTextInput.setAttribute("value", "text");
+  newInputTypeTextInput.type = "radio";
+  newInputTypeTextInput.className = "radio";
+  newInputTypeTextInput.name = "inputType" + questionsId.length;
+  newInputTypeTextInput.id = "text";
+  newInputTypeTextInput.value = "text";
   newQuestion.appendChild(newInputTypeTextInput);
 
   let newInputTextText = document.createTextNode("Text");
@@ -72,12 +72,12 @@ function newQuestion() {
   newQuestion.appendChild(document.createElement("br"));
 
   let newInputTypeRadioInput = document.createElement("input");
-  newInputTypeRadioInput.setAttribute("type", "radio");
-  newInputTypeRadioInput.setAttribute("class", "radio");
-  newInputTypeRadioInput.setAttribute("name", "inputType" + questionsId.length);
-  newInputTypeRadioInput.setAttribute("id", "radio");
-  newInputTypeRadioInput.setAttribute("value", "radio");
-  newInputTypeRadioInput.setAttribute("checked", "checked");
+  newInputTypeRadioInput.type = "radio";
+  newInputTypeRadioInput.className = "radio";
+  newInputTypeRadioInput.name = "inputType" + questionsId.length;
+  newInputTypeRadioInput.id = "radio";
+  newInputTypeRadioInput.value = "radio";
+  newInputTypeRadioInput.checked = "checked";
   newQuestion.appendChild(newInputTypeRadioInput);
 
   let newInputRadioText = document.createTextNode("Radio");
@@ -86,11 +86,11 @@ function newQuestion() {
   newQuestion.appendChild(document.createElement("br"));
 
   let newInputTypeCheckboxInput = document.createElement("input");
-  newInputTypeCheckboxInput.setAttribute("type", "radio");
-  newInputTypeCheckboxInput.setAttribute("class", "radio");
-  newInputTypeCheckboxInput.setAttribute("name", "inputType" + questionsId.length);
-  newInputTypeCheckboxInput.setAttribute("id", "checkbox");
-  newInputTypeCheckboxInput.setAttribute("value", "checkbox");
+  newInputTypeCheckboxInput.type = "radio";
+  newInputTypeCheckboxInput.className = "radio";
+  newInputTypeCheckboxInput.name = "inputType" + questionsId.length;
+  newInputTypeCheckboxInput.id = "checkbox";
+  newInputTypeCheckboxInput.value = "checkbox";
   newQuestion.appendChild(newInputTypeCheckboxInput);
 
   let newInputCheckboxText = document.createTextNode("Checkbox");
@@ -100,8 +100,8 @@ function newQuestion() {
 
   // textarea for input values
   let inputValuesLabel = document.createElement("label");
-  inputValuesLabel.setAttribute("for", "inputTalues");
-  inputValuesLabel.setAttribute("id", "label-input-values");
+  inputValuesLabel.htmlFor = "inputTalues";
+  inputValuesLabel.id = "label-input-values";
 
   inputValuesLabel.innerHTML = "Input Values (separate values by comma)";
   newQuestion.appendChild(inputValuesLabel);
@@ -109,10 +109,10 @@ function newQuestion() {
   newQuestion.appendChild(document.createElement("br"));
 
   let inputValuesInput = document.createElement("textarea");
-  inputValuesInput.setAttribute("name", "inputValues");
-  inputValuesInput.setAttribute("id", "inputValues");
-  inputValuesInput.setAttribute("cols", "30");
-  inputValuesInput.setAttribute("rows", "10");
+  inputValuesInput.name = "inputValues";
+  inputValuesInput.id = "inputValues";
+  inputValuesInput.cols = "30";
+  inputValuesInput.rows = "10";
   newQuestion.appendChild(inputValuesInput);
 
   newQuestion.appendChild(document.createElement("hr"));
@@ -188,13 +188,3 @@ function submitForm(e) {
     console.log("form created!")
   });
 }
-
-/*
-fs.writeFile(formName + '.txt', questions, (err) => {
-  // throws error
-  if (err) throw err;
-
-  //success case, file saved
-  console.log("form created!")
-});
-*/
