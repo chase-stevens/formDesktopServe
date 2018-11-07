@@ -8,7 +8,7 @@ function submitForm(e) {
   let tracker = [];
   let row = [];
   isHeader = false;
-  
+
   for (const entry of data) {
     if (tracker.includes(entry[0])) {
       let position = tracker.indexOf(entry[0]);
@@ -36,68 +36,68 @@ function renderForm(questions) {
 
 function renderQuestion(question) {
   // create a new div element
-  var newQuestion = document.createElement("div");
+  let newQuestion = document.createElement("div");
   newQuestion.className += "question-container";
 
   // and give it some content
-  var questionLabel = document.createElement("label");
-  var questionLabelNode = document.createTextNode(question.questionName);
+  let questionLabel = document.createElement("label");
+  let questionLabelNode = document.createTextNode(question.questionName);
   questionLabel.appendChild(questionLabelNode);
   newQuestion.appendChild(questionLabel);
 
   // Adds line break for formatting
-  var lineBreak = document.createElement("br");
+  let lineBreak = document.createElement("br");
   newQuestion.appendChild(lineBreak);
 
   // renders text input
   if (question.inputType === "text"){
-    var newInput = document.createElement("input");
+    let newInput = document.createElement("input");
     newInput.setAttribute("type", question.inputType);
     newInput.setAttribute("id", question.questionTag);
     newInput.setAttribute("name", question.questionTag);
     newQuestion.appendChild(newInput);
 
-    var lineBreak = document.createElement("br");
+    let lineBreak = document.createElement("br");
     newQuestion.appendChild(lineBreak);
   }
 
   // renders radio or checkbox input
   else {
     for (let i = 0; i < question.inputValues.length; i++) {
-      var newInput = document.createElement("input");
+      let newInput = document.createElement("input");
       newInput.setAttribute("type", question.inputType);
       newInput.setAttribute("id", `${question.questionTag}-${question.inputType}${i}`);
       newInput.setAttribute("name", question.questionTag);
       newInput.setAttribute("value", question.inputValues[i]);
 
-      var newLabel = document.createElement("label");
+      let newLabel = document.createElement("label");
       newLabel.setAttribute("for", `${question.questionTag}-${question.inputType}${i}`);
 
 
-      var newInputText = document.createTextNode(question.inputValues[i]);
+      let newInputText = document.createTextNode(question.inputValues[i]);
       newLabel.appendChild(newInputText);
 
       newQuestion.appendChild(newInput);
       newQuestion.appendChild(newLabel);
 
-      var lineBreak = document.createElement("br");
+      let lineBreak = document.createElement("br");
       newQuestion.appendChild(lineBreak);
     }
   }
 
   document.getElementById("dynamic-form").appendChild(newQuestion);
-  var currentDiv = document.getElementById("form-button");
+  let currentDiv = document.getElementById("form-button");
 }
 
 // Creates button for form
 // do we need this or can we create the button in the html?
 function createButton() {
-  var newButton = document.createElement("button");
+  let newButton = document.createElement("button");
   newButton.setAttribute("type", "submit");
   newButton.setAttribute("id", "form-button");
   newButton.setAttribute("class", "btn");
 
-  var newButtonText = document.createTextNode("Submit");
+  let newButtonText = document.createTextNode("Submit");
   newButton.appendChild(newButtonText);
   document.getElementById("dynamic-form").appendChild(newButton);
 }
