@@ -8,6 +8,7 @@ function submitForm(e) {
   let tracker = [];
   let row = [];
   isHeader = false;
+  
   for (const entry of data) {
     if (tracker.includes(entry[0])) {
       let position = tracker.indexOf(entry[0]);

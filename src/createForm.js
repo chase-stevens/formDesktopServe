@@ -16,15 +16,14 @@ function newQuestion() {
 
   // add header
   let header = document.createElement("h2");
-  let headerNode = document.createTextNode("Question " + (questionsId.length));
-  header.appendChild(headerNode);
+  header.innerHTML = "Question " + (questionsId.length);
   newQuestion.appendChild(header);
 
   // add input for name
   let nameLabel = document.createElement("label");
-  let nameLabelNode = document.createTextNode("Question Name");
-  nameLabel.appendChild(nameLabelNode);
+  nameLabel.innerHTML = "Question Name";
   newQuestion.appendChild(nameLabel);
+
   newQuestion.appendChild(document.createElement("br"));
 
   // Add text input for name
@@ -32,13 +31,14 @@ function newQuestion() {
   newNameInput.setAttribute("type", "text");
   newNameInput.setAttribute("name", "questionName");
   newQuestion.appendChild(newNameInput);
+
   newQuestion.appendChild(document.createElement("br"));
 
   // add input for tag
   let tagLabel = document.createElement("label");
-  let tagLabelNode = document.createTextNode("Question Tag");
-  tagLabel.appendChild(tagLabelNode);
+  tagLabel.innerHTML = "Question Tag";
   newQuestion.appendChild(tagLabel);
+
   newQuestion.appendChild(document.createElement("br"));
 
   // Add text input for tag
@@ -46,14 +46,15 @@ function newQuestion() {
   newTagInput.setAttribute("type", "text");
   newTagInput.setAttribute("name", "questionTag");
   newQuestion.appendChild(newTagInput);
+
   newQuestion.appendChild(document.createElement("br"));
 
   // add label for input type
-  let InputTypeLabel = document.createElement("label");
-  InputTypeLabel.setAttribute("for", "inputType");
-  let InputTypeNode = document.createTextNode("Input Type");
-  InputTypeLabel.appendChild(InputTypeNode);
-  newQuestion.appendChild(InputTypeLabel);
+  let inputTypeLabel = document.createElement("label");
+  inputTypeLabel.setAttribute("for", "inputType");
+  inputTypeLabel.innerHTML = "Input Type";
+  newQuestion.appendChild(inputTypeLabel);
+
   newQuestion.appendChild(document.createElement("br"));
 
   // add radio inputs for input type
@@ -97,17 +98,12 @@ function newQuestion() {
 
   newQuestion.appendChild(document.createElement("br"));
 
-  /*
-  <label for="input-values">Input Values (separate by comma)</label><br>
-  <textarea name="input-options" id="input-options" cols="30" rows="10"></textarea>
-  */
-
   // textarea for input values
   let inputValuesLabel = document.createElement("label");
   inputValuesLabel.setAttribute("for", "inputTalues");
   inputValuesLabel.setAttribute("id", "label-input-values");
-  let inputValuesLabelNode = document.createTextNode("Input Values (separate values by comma)");
-  inputValuesLabel.appendChild(inputValuesLabelNode);
+
+  inputValuesLabel.innerHTML = "Input Values (separate values by comma)";
   newQuestion.appendChild(inputValuesLabel);
 
   newQuestion.appendChild(document.createElement("br"));
@@ -180,6 +176,7 @@ function submitForm(e) {
     counter++;
   }
 
+  // move to main js and close window
   let filePath = __dirname + `/../forms/` + formFile.name + '.txt';
   let fileContents = JSON.stringify(formFile);
 
