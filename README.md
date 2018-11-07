@@ -1,6 +1,6 @@
-# formDesktopServe
+# Survey Tablet
 
-formDesktopServe is an offline form creation and serving tool. Inspired by a problem presented by non-profits at Opportunity Hackaton 2018, formDesktopServe is a tool meant to solve the pain-point of paper forms for individuals who don't have access or the ability to fill out a digital form.
+Survey Tablet is an offline form creation and serving tool. Inspired by a problem presented by non-profits at Opportunity Hackaton 2018, Survey Tablet is a tool meant to solve the pain-point of paper forms for individuals who don't have access or the ability to fill out a digital form.
 
 ## The Problem
 
@@ -23,14 +23,4 @@ Paper forms are expensive and unreliable.
 
 ## The Solution
 
-formDesktopServe is a desktop app (made using Electron) that allows for the creation of forms as well as the ability to serve forms digitally and saves the result as a .csv on the desktop.
-
-### Create
-
-### Load
-
-### Serve
-
-### Save
-
-### Clear
+Survey Tablet is a desktop app (made using Electron) that allows for the creation of forms as well as the ability to serve forms digitally and saves the result as a .csv on the desktop.
